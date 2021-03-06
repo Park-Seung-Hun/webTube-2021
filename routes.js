@@ -1,4 +1,4 @@
-// :id 는 변수, id 는 string
+/* URL route 저장소*/
 // Global url
 const HOME = "/";
 const JOIN = "/join";
@@ -40,4 +40,3 @@ const routes = {
 };
 
 export default routes;
-// URL route 저장소
