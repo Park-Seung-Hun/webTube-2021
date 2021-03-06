@@ -15,12 +15,14 @@ import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
 
+/* 미들웨어 use */
 app.use(cookieParser());
 app.use(bodyParser.json()); // 서버에게 json 전달시
 app.use(bodyParser.urlencoded({ extended: true })); // 서버에게 html form 전달시
 app.use(helmet());
 app.use(morgan("dev"));
 
+/* Router use */
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);

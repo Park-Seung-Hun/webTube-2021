@@ -1,10 +1,10 @@
 /* URL route 저장소*/
 // Global url
 const HOME = "/";
+const SEARCH = "/search";
 const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
-const SEARCH = "/search";
 
 // User url
 const USERS = "/users";
