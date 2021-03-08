@@ -17,7 +17,11 @@ const app = express(); // express를 실행해서 app를 만든 것.
 
 /* pug 파일 경로 설정 */
 app.set("view engine", "pug");
-app.set("views", ["./views/videoViews", "./views/userViews"]);
+app.set("views", [
+  "./views/layouts",
+  "./views/videoViews",
+  "./views/userViews",
+]);
 
 /* 미들웨어 use */
 app.use(cookieParser());

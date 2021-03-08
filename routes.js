@@ -8,9 +8,9 @@ const LOGOUT = "/logout";
 
 // User url
 const USERS = "/users";
-const USER_DETAIL = "/:id";
 const USER_EDIT_PROFILE = "/edit-profile";
 const USER_CHANGE_PASSWORD = "/change-password";
+const USER_DETAIL = "/:id";
 
 // Videos url
 const VIDEOS = "/videos";
@@ -28,9 +28,9 @@ const routes = {
   search: SEARCH,
 
   users: USERS,
-  userdetail: USER_DETAIL,
-  usereditprofile: USER_EDIT_PROFILE,
-  userchangepassword: USER_CHANGE_PASSWORD,
+  userDetail: USER_DETAIL,
+  editProfile: USER_EDIT_PROFILE,
+  changePassword: USER_CHANGE_PASSWORD,
 
   videos: VIDEOS,
   detailvideo: DETAIL_VIDEO,
