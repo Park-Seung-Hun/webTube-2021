@@ -6,6 +6,7 @@ import morgan from "morgan"; // log를 기록
 import helmet from "helmet"; // 기초 보안
 import cookieParser from "cookie-parser"; // 쿠키에 유저 정보를 저장 (session을 다루기 위해)
 import bodyParser from "body-parser"; // form 형식 다루기
+import { localsMiddleware } from "./middlewares";
 
 /* routers의 각 route (URL 분리 용도) */
 import globalRouter from "./routers/globalRouter";
@@ -15,16 +16,23 @@ import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
 
+app.use(helmet());
 /* pug 파일 경로 설정 */
 app.set("view engine", "pug");
-app.set("views", ["./views/videoViews", "./views/userViews"]);
+app.set("views", [
+  "./views/layouts",
+  "./views/videoViews",
+  "./views/userViews",
+]);
 
 /* 미들웨어 use */
 app.use(cookieParser());
 app.use(bodyParser.json()); // 서버에게 json 전달시
 app.use(bodyParser.urlencoded({ extended: true })); // 서버에게 html form 전달시
-app.use(helmet());
 app.use(morgan("dev"));
+
+/* local middleware*/
+app.use(localsMiddleware);
 
 /* Router use */
 app.use(routes.home, globalRouter);
