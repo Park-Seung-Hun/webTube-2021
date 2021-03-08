@@ -1,4 +1,9 @@
 extends ../layouts/main
 
 block content
-    p Do you want login?
+    .form__container 
+        form(action='/login',method="post")
+            input(type="email",name="email",placeholder="Please Write Your Email")
+            input(type="password",name="password",placeholder="Please Write Password") 
+            input(type="submit", value="Log In")
+        include ../partials/socialLogin
