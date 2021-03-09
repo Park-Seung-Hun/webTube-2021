@@ -16,7 +16,8 @@ import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
 
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
+
 /* pug 파일 경로 설정 */
 app.set("view engine", "pug");
 app.set("views", [

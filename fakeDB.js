@@ -5,7 +5,7 @@ export const videos = [
     description: "This is something I loves",
     views: 24,
     videoFile:
-      "https://archive.org/details/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012",
+      "https://archive.org/download/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012/Vietnam%20Travel%20Guide_%20Hanoi%2C%20Ha%20Long%20Bay%2C%20Ho%20Chi%20Minh.ia.mp4",
     creator: {
       id: 121212,
       name: "Park",
@@ -18,7 +18,7 @@ export const videos = [
     description: "I loves",
     views: 24,
     videoFile:
-      "https://archive.org/details/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012",
+      "https://archive.org/download/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012/Vietnam%20Travel%20Guide_%20Hanoi%2C%20Ha%20Long%20Bay%2C%20Ho%20Chi%20Minh.ia.mp4",
     creator: {
       id: 222222,
       name: "Park",
@@ -31,7 +31,7 @@ export const videos = [
     description: "Wow This is Crazy",
     views: 24,
     videoFile:
-      "https://archive.org/details/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012",
+      "https://archive.org/download/vietnam-travel-guide-hanoi-ha-long-bay-ho-chi-minh_202012/Vietnam%20Travel%20Guide_%20Hanoi%2C%20Ha%20Long%20Bay%2C%20Ho%20Chi%20Minh.ia.mp4",
     creator: {
       id: 323232,
       name: "Park",
