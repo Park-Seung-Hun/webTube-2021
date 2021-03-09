@@ -9,7 +9,7 @@ export const search = (req, res) => {
     query: { term: searchingBy },
   } = req; // form의 input(term) 정보를 받아온다.
 
-  res.render("search", { pageTitle: "Search", searchingBy });
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const uploadVideo = (req, res) =>
