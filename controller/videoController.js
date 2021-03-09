@@ -1,4 +1,9 @@
-export const home = (req, res) => res.render("home", { pageTitle: "Home" });
+import { videos } from "../fakeDB";
+
+export const home = (req, res) => {
+  res.render("home", { pageTitle: "Home", videos }); // videos 배열 전달.
+};
+
 export const search = (req, res) => {
   const {
     query: { term: searchingBy },
