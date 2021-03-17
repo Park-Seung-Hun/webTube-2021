@@ -39,7 +39,7 @@ const routes = {
   videos: VIDEOS,
   detailvideo: (id) => {
     if (id) {
-      return `/video/${id}`;
+      return `/videos/${id}`;
     } else {
       return DETAIL_VIDEO;
     }

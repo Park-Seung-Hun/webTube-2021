@@ -2,9 +2,9 @@ extends ../layouts/main
 
 block content
     .form-container
-        fomr(action=`/videos${routes.upload}`,method="post")
+        form(action=`/videos${routes.uploadvideo}`,method="post")
             label(for="file") Video File 
-            input(type="file", id="file",name="file")
-            input(type="text",placeholder="Title", nmae="title")
-            textarea(name="description", placeholder="Description")
+            input(type="file", id="file",name="file", required=true)
+            input(type="text",placeholder="Title", nmae="title", required=true)
+            textarea(name="description", placeholder="Description", required=true)
             input(type="submit",value="Upload Video") 
