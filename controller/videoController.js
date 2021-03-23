@@ -1,4 +1,3 @@
-import { videos } from "../fakeDB";
 import routes from "../routes";
 export const home = (req, res) => {
   res.render("home", { pageTitle: "Home", videos }); // videos 배열 전달.
