@@ -100,14 +100,14 @@ dist
 
 # FuseBox cache
 .fusebox/
+package-lock.json
+videos
 
 # DynamoDB Local files
 .dynamodb/
 
 # TernJS port file
 .tern-port
-package-lock.json
-videos
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
@@ -118,5 +118,3 @@ videos
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-package-lock.json
