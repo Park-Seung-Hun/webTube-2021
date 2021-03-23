@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config(); // .env파일 안에 있는 정보를 불러온다.
 
-mongoose.connect("mongodb://localhost:27017/webtube", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
