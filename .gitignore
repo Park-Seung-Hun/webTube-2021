@@ -1,4 +1,6 @@
 node_modules
+videos
+
 
 # Logs
 logs
@@ -101,8 +103,6 @@ dist
 # FuseBox cache
 .fusebox/
 package-lock.json
-videos
-
 # DynamoDB Local files
 .dynamodb/
 
