@@ -27,17 +27,29 @@ export const postuploadVideo = async (req, res) => {
     body: { title, description },
     file: { path },
   } = req;
+
   // Todo: 비디오 업로드와 저장
   const newVideo = await Video.create({
     fileUrl: path,
     title,
     description,
   });
+
   res.redirect(routes.detailvideo(newVideo.id));
 };
 
-export const detailVideo = (req, res) =>
-  res.render("detailVideo", { pageTitle: "DetailVideo" });
+export const detailVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    res.render("detailVideo", { pageTitle: "DetailVideo", video });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
 export const editVideo = (req, res) =>
   res.render("editVideo", { pageTitle: "editVideo" });
 export const deleteVideo = (req, res) =>
