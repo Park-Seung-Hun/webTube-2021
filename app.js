@@ -16,6 +16,7 @@ import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
 
+app.use(helmet({ contentSecurityPolicy: false }));
 /* pug 파일 경로 설정 */
 app.set("view engine", "pug");
 app.set("views", [
@@ -23,9 +24,9 @@ app.set("views", [
   "./views/videoViews",
   "./views/userViews",
 ]);
+app.use("/uploads", express.static("uploads"));
 
 /* 미들웨어 use */
-app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cookieParser());
 app.use(bodyParser.json()); // 서버에게 json 전달시
 app.use(bodyParser.urlencoded({ extended: true })); // 서버에게 html form 전달시
