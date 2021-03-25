@@ -4,7 +4,7 @@ import Video from "../models/Video";
 // home VideoController
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos }); // videos 배열 전달.
   } catch (error) {
     console.log(error);
@@ -13,12 +13,21 @@ export const home = async (req, res) => {
 };
 
 // search VideoController
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
   } = req; // form의 input(term) 정보를 받아온다.
-
-  res.render("search", { pageTitle: "Search", searchingBy });
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+      // $regex: 정규 표현식
+      // $option: "i" : 덜 민감하게 만들어줌 (모든 단어 가능)
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 // upload VideoController
@@ -88,6 +97,8 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     await Video.findOneAndRemove({ _id: id });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
   res.redirect(routes.home);
 };
