@@ -51,7 +51,13 @@ const routes = {
       return EDIT_VIDEO;
     }
   },
-  deletevideo: DELETE_VIDEO,
+  deletevideo: (id) => {
+    if (id) {
+      return `/videos/${id}/delete`;
+    } else {
+      return DELETE_VIDEO;
+    }
+  },
   uploadvideo: UPLOAD_VIDEO,
 };
 
