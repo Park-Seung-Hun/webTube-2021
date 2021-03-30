@@ -25,6 +25,7 @@ app.set("views", [
   "./views/userViews",
 ]);
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 
 /* 미들웨어 use */
 app.use(cookieParser());
