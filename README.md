@@ -19,9 +19,8 @@
 
 1. NodeJS
 
-
-    - ExpressJS
-    - ES6 using Babel
+   - ExpressJS
+   - ES6 using Babel
 
 2. Pug
 3. SCSS
@@ -29,38 +28,77 @@
 5. Mongoose
 6. ESLint
 7. Webpack
-8. 인생은 외롭고 고단하다.
 
 ### 📕 주요 기능
 
+1. 기능부
+
+```
+├── controller
+|     ├── userController.js
+|     └── videoController.js
+├── routers
+|     ├── globalRouter.js
+|     ├── userRouter.js
+|     └── videoRouter.js
+├── models
+|     ├── Comment.js
+|     └── Video.js
+├── app.js
+├── db.js
+├── init.js
+├── middlewares.js
+└── routes.js
+```
+
+2.
+
+```
+└── views
+    ├── layouts
+    |     └──main.pug
+    ├── mixins
+    |     └──videoBlock.pug
+    ├── partials
+    |     ├── footer.pug
+    |     ├── header.pug
+    socialLogin.pug
+    ├── userViews
+    |     ├── changePassword.pug
+    |     ├── editProfile.pug
+    |     ├── join.pug
+    |     ├── login.pug
+    |     └──userDetail.pug
+    └── videoViews
+          ├── deleteVideo.pug
+          ├── detailVideo.pug
+          ├── editVideo.pug
+          ├── home.pug
+          ├── search.pug
+          └──uploadVideo.pug
+
+
+```
+
+3.
+
 ```
 ├── assets
-     ├── js
-     |   └── main.js
-     └── scss
-         ├── config
-         |   ├── _variables.scss
-         |   └── reset.scss
-         ├── pages
-         |   └── home.scss
-         └── partials
-             ├── main.scss
-             └── style.scss
-
+|     ├── js
+|     |   └── main.js
+|     └── scss
+|         ├── config
+|         |   ├── _variables.scss
+|         |   └── reset.scss
+|         ├── pages
+|         |   └── home.scss
+|         └── partials
+|             ├── main.scss
+|             └── style.scss
+|
 └── static
      ├── main.js
      └── styles.css
-```
-
-```
-├── README.md
-├── SUMMARY.md
-├── chapter-1/
-|   ├── README.md
-|   └── something.md
-└── chapter-2/
-    ├── README.md
-    └── something.md
 ```
 
 ### 📘 추가할 기능
@@ -73,9 +111,3 @@
 - `Music` 기능 추가
   1.  날씨 or 계절에 맞는 음악 추천
   2.  앨범 표지 회전 효과
-
-### 📙 출처
-
-[노마드 코더](https://nomadcoders.co/)<br>
-
-봄,겨울 특수효과: [code pen](https://codepen.io/)
