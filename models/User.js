@@ -14,6 +14,6 @@ UserSchema.plugin(passportLocalMongoose, {
   usernameField: "email",
 }); // 인증할 username을 email로 설정.
 
-const model = mongoose.Model("User", UserSchema);
+const model = mongoose.model("User", UserSchema);
 
 export default model;
