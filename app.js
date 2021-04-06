@@ -7,6 +7,7 @@ import helmet from "helmet"; // 기초 보안
 import cookieParser from "cookie-parser"; // 쿠키에 유저 정보를 저장 (session을 다루기 위해)
 import bodyParser from "body-parser"; // form 형식 다루기
 import { localsMiddleware } from "./middlewares";
+import session from "express-session";
 import passport from "passport";
 import "./passport";
 
@@ -34,6 +35,15 @@ app.use(cookieParser());
 app.use(bodyParser.json()); // 서버에게 json 전달시
 app.use(bodyParser.urlencoded({ extended: true })); // 서버에게 html form 전달시
 app.use(morgan("dev"));
+
+/* passport 와 session */
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET, // 쿠키 내 session ID를 암호화
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
