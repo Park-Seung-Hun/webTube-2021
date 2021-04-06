@@ -7,6 +7,8 @@ import helmet from "helmet"; // 기초 보안
 import cookieParser from "cookie-parser"; // 쿠키에 유저 정보를 저장 (session을 다루기 위해)
 import bodyParser from "body-parser"; // form 형식 다루기
 import { localsMiddleware } from "./middlewares";
+import passport from "passport";
+import "./passport";
 
 /* routers의 각 route (URL 분리 용도) */
 import globalRouter from "./routers/globalRouter";
@@ -32,6 +34,8 @@ app.use(cookieParser());
 app.use(bodyParser.json()); // 서버에게 json 전달시
 app.use(bodyParser.urlencoded({ extended: true })); // 서버에게 html form 전달시
 app.use(morgan("dev"));
+app.use(passport.initialize());
+app.use(passport.session());
 
 /* local middleware*/
 app.use(localsMiddleware);
