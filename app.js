@@ -6,6 +6,8 @@ import morgan from "morgan"; // log를 기록
 import helmet from "helmet"; // 기초 보안
 import cookieParser from "cookie-parser"; // 쿠키에 유저 정보를 저장 (session을 다루기 위해)
 import bodyParser from "body-parser"; // form 형식 다루기
+import MongoStore from "connect-mongo";
+import mongoose from "mongoose";
 import { localsMiddleware } from "./middlewares";
 import session from "express-session";
 import passport from "passport";
@@ -18,6 +20,7 @@ import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
+const CookieStore = MongoStore(session);
 
 app.use(helmet({ contentSecurityPolicy: false }));
 /* pug 파일 경로 설정 */
@@ -42,6 +45,9 @@ app.use(
     secret: process.env.COOKIE_SECRET, // 쿠키 내 session ID를 암호화
     resave: true,
     saveUninitialized: false,
+    store: new CookieStore({
+      mongooseConnection: mongoose.connection,
+    }),
   })
 );
 app.use(passport.initialize());
