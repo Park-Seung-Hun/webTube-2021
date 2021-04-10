@@ -1,4 +1,5 @@
-.social-login {
+.social-login,
+.social-join {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,15 +18,18 @@
       font-size: 20px;
     }
   }
-  .social-login--github {
+  .social-login--github,
+  .social-join--github {
     background-color: $black;
     color: white;
   }
-  .social-login--facebook {
+  .social-login--facebook,
+  .social-join--facebook {
     background-color: #3a5998;
     color: white;
   }
-  .social-login--google {
+  .social-login--google,
+  .social-join--google {
     background-color: #e24939;
     color: white;
   }

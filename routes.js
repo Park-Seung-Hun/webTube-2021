@@ -12,6 +12,10 @@ const USER_EDIT_PROFILE = "/edit-profile";
 const USER_CHANGE_PASSWORD = "/change-password";
 const USER_DETAIL = "/:id";
 
+// Github
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
 // Videos url
 const VIDEOS = "/videos";
 const UPLOAD_VIDEO = "/upload";
@@ -59,6 +63,8 @@ const routes = {
     }
   },
   uploadvideo: UPLOAD_VIDEO,
+  gitHub: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
 };
 
 export default routes;

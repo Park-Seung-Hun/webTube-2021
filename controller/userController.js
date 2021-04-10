@@ -2,6 +2,7 @@ import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 
+/* Join */
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
@@ -31,17 +32,31 @@ export const postJoin = async (req, res, next) => {
   }
 };
 
+/* Login Logout */
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Log in" });
+
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home,
 });
 
 export const logout = (req, res) => {
-  // todo : 로그아웃 처리
+  req.logout(); // todo : 로그아웃 처리
   res.redirect(routes.home);
 };
+
+/* GitHub Login Controller */
+export const githubLogin = passport.authenticate("github");
+
+export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
+  console.log(accessToken, refreshToken, profile, cb);
+};
+export const postGithubLogIn = (req, res) => {
+  res.send(routes.home);
+};
+
+/* etc */
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "user Detail" });
 export const editProfile = (req, res) =>
