@@ -1,7 +1,7 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
-import { githubLoginCallback } from "./controller/userController";
 import User from "./models/User";
+import { githubLoginCallback } from "./controller/userController";
 import routes from "./routes";
 
 // strategy: 로그인 방식
@@ -19,5 +19,10 @@ passport.use(
   )
 );
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});

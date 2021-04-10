@@ -49,16 +49,58 @@ export const logout = (req, res) => {
 /* GitHub Login Controller */
 export const githubLogin = passport.authenticate("github");
 
-export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
-  console.log(accessToken, refreshToken, profile, cb);
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  // json 내부의 요소를 가져온다.
+  const {
+    _json: { id, avatar_url: avatarUrl, name, email },
+  } = profile;
+
+  // cb: passport에서 제공된 callback 함수(인증에 성공한 상황에서 호출)
+
+  try {
+    const user = await User.findOne({ email });
+
+    console.log(id);
+    // user가 존재하는 경우(동일한 email을 가진 유저)
+    if (user) {
+      user.githubId = id;
+      user.save();
+      return cb(null, user);
+    }
+
+    // user가 존재하지 않는 경우
+    const newUser = await User.create({
+      email,
+      name,
+      githubId: id,
+      avatarUrl,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
 };
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
+
 export const postGithubLogIn = (req, res) => {
-  res.send(routes.home);
+  res.redirect(routes.home);
 };
 
 /* etc */
-export const userDetail = (req, res) =>
-  res.render("userDetail", { pageTitle: "user Detail" });
+export const userDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "editProfile" });
 export const changePassword = (req, res) =>
