@@ -6,6 +6,7 @@ dotenv.config(); // .env파일 안에 있는 정보를 불러온다. process.env
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false,
+  useCreateIndex: true,
   useUnifiedTopology: true,
 });
 

@@ -42,12 +42,10 @@ app.use(morgan("dev"));
 /* passport 와 session */
 app.use(
   session({
-    secret: process.env.COOKIE_SECRET, // 쿠키 내 session ID를 암호화
+    secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
-    store: new CookieStore({
-      mongooseConnection: mongoose.connection,
-    }),
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());
