@@ -64,6 +64,10 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     // user가 존재하는 경우(동일한 email을 가진 유저)
     if (user) {
       user.githubId = id;
+      user.email = email;
+      user.avatarUrl = avatarUrl;
+      user.name = name;
+
       user.save();
       return cb(null, user);
     }
