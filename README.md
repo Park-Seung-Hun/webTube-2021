@@ -20,6 +20,7 @@
 1. NodeJS
 
    - ExpressJS
+   - PassportJS
    - ES6 using Babel
 
 2. Pug
