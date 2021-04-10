@@ -37,6 +37,7 @@
   - `routes.js`: URL route 저장소
   - `db.js`: Mongoose와 Dotenv를 이용해 DB를 연결
   - `middlewares.js`: Multer를 이용해 file을 업로드하고 URL을 반환하는 middleware 동작.
+  - `passport.js`: 인증을 위한 passport 미들웨어 동작
   - `controller`: user Content와 video Content의 동작을 담당한다
     1. `userController`: Join, Login, Logout, UserDetail, EditProfile, ChangePassword 기능
     2. `videoController`: home, search, uploadVideo, detailVideo, editVideo, deleteVideo 기능, Models에서 DB에 저장된 정보를 Controll
@@ -46,7 +47,8 @@
     3. `videoRouter`: uploadVideo, detailVideo, editVideo, deleteVideo Route 분류
   - `models`: Comment, Video의 model과 schema를 작성 기능
     1. `Comment.js`: Comment에 대한 model과 schema(text, createdAt)
-    2. `Video.js`:Video에 대한 model과 schema(fileUrl, title, description, views, createdAt, comments)
+    2. `Video.js`: Video에 대한 model과 schema(fileUrl, title, description, views, createdAt, comments)
+    3. `User.js`: 유저 정보를 담은 Schema를 생성하여 저장하는 기능.
 
 ```
 ├── controller
@@ -58,11 +60,13 @@
 |     └── videoRouter.js
 ├── models
 |     ├── Comment.js
+|     ├── User.js
 |     └── Video.js
 ├── app.js
 ├── db.js
 ├── init.js
 ├── middlewares.js
+├── passport.js
 └── routes.js
 ```
 
@@ -74,7 +78,8 @@
   - `partials`
     1. `header.pug`: 페이지의 상단 부분
     2. `footer.pug`: 페이지의 하단 부분
-    3. `socialLogin.pug`: Github 및 Facebook Login을 위한 부분
+    3. `socialJoin.pug`: Github 및 Facebook,Google ID를 이용해 회원가입을 위한 부분
+    4. `socialLogin.pug`: Github 및 Facebook,Google ID를 이용해 로그인을 위한 부분
   - `userViews`: userController의 모든 페이지를 구성
   - `videoViews`: videoController의 모든 페이지를 구성
 
@@ -87,6 +92,7 @@
     ├── partials
     |     ├── footer.pug
     |     ├── header.pug
+    |     ├── socialJoin.pug
     |     └── socialLogin.pug
     ├── userViews
     |     ├── changePassword.pug
@@ -114,11 +120,16 @@
 |         |   ├── _variables.scss
 |         |   └── reset.scss
 |         ├── pages
-|         |   └── home.scss
-|         └── partials
-|             ├── main.scss
-|             └── style.scss
-|
+|         |   ├── home.scss
+|         |   └── videoDetail.scss
+|         ├── partials
+|         |   ├── footer.scss
+|         |   ├── form.scss
+|         |   ├── header.scss
+|         |   ├── social.scss
+|         |   └── videoBlock.scss
+|         ├── main.scss
+|         └── style.scss
 └── static
      ├── main.js
      └── styles.css
@@ -126,6 +137,5 @@
 
 ### 📘 추가할 기능
 
-1. 인증 미들웨어인 Passportjs를 이용해 Login 기능.
-2. Relationships and Route 보호
-3. Video Player Custom
+1. Relationships and Route 보호
+2. Video Player Custom
