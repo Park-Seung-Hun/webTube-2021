@@ -88,20 +88,6 @@ export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
-/* 유저 정보 */
-
-export const userDetail = async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  try {
-    const user = await User.findById(id);
-    res.render("userDetail", { pageTitle: "User Detail", user });
-  } catch (error) {
-    res.redirect(routes.home);
-  }
-};
-
 /* 유저 정보 갱신 */
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "editProfile" });
@@ -124,8 +110,31 @@ export const postEditProfile = async (req, res) => {
   }
 };
 
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+/* 유저 정보 */
+
+export const userDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+
+export const getMe = async (req, res) => {
+  const id = req.user._id;
+  try {
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 
 /* 비밀번호 변경 */
