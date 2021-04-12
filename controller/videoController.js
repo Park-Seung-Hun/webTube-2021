@@ -1,7 +1,7 @@
 import routes from "../routes";
 import Video from "../models/Video";
 
-// home VideoController
+/* 메인 페이지 */
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ _id: -1 });
@@ -12,7 +12,7 @@ export const home = async (req, res) => {
   }
 };
 
-// search VideoController
+/* 검색 페이지 */
 export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
@@ -30,7 +30,7 @@ export const search = async (req, res) => {
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
-// upload VideoController
+/* 동영상 업로드 */
 export const getuploadVideo = (req, res) =>
   res.render("uploadVideo", { pageTitle: "Upload" });
 
@@ -40,31 +40,34 @@ export const postuploadVideo = async (req, res) => {
     file: { path },
   } = req;
 
-  // Todo: 비디오 업로드와 저장
   const newVideo = await Video.create({
     fileUrl: path,
     title,
     description,
+    creator: req.user.id,
   });
 
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   res.redirect(routes.detailvideo(newVideo.id));
 };
 
-// detail VideoController
+/* 동영상 세부정보 */
 export const detailVideo = async (req, res) => {
   const {
     params: { id },
   } = req;
 
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
+    console.log(video);
     res.render("detailVideo", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 
-// edit VideoController
+/* 동영상 세부정보 편집 */
 export const geteditVideo = async (req, res) => {
   const {
     params: { id },
@@ -90,7 +93,7 @@ export const postEditVideo = async (req, res) => {
   }
 };
 
-// delete VideoController
+/* 동영상 삭제 */
 export const deleteVideo = async (req, res) => {
   const {
     params: { id },
