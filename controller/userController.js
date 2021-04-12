@@ -92,7 +92,7 @@ export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
-/* etc */
+/* 유저 정보 */
 export const userDetail = async (req, res) => {
   const {
     params: { id },
@@ -105,7 +105,27 @@ export const userDetail = async (req, res) => {
   }
 };
 
-export const editProfile = (req, res) =>
+/* 유저 정보 갱신 */
+export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "editProfile" });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req;
+
+  try {
+    await User.findByIdAndUpdate(req.user._id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.render("editProfile", { pageTitle: "editProfile" });
+  }
+};
+
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "changePassword" });
