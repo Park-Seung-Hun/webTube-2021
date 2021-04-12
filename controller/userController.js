@@ -2,7 +2,7 @@ import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 
-/* Join */
+/* 회원가입 */
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
@@ -25,14 +25,13 @@ export const postJoin = async (req, res, next) => {
       await User.register(user, password);
       next();
     } catch (error) {
-      console.log(error);
       res.redirect(routes.home);
     }
     // ToDo: log user in
   }
 };
 
-/* Login Logout */
+/* 로그인 로그아웃 */
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Log in" });
 
@@ -46,7 +45,7 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-/* GitHub Login Controller */
+/* GitHub 로그인 */
 export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
@@ -84,15 +83,13 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
-};
 
 export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
 /* 유저 정보 */
+
 export const userDetail = async (req, res) => {
   const {
     params: { id },
@@ -123,9 +120,33 @@ export const postEditProfile = async (req, res) => {
     });
     res.redirect(routes.me);
   } catch (error) {
-    res.render("editProfile", { pageTitle: "editProfile" });
+    res.render(routes.editprofile);
   }
 };
 
-export const changePassword = (req, res) =>
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
+
+/* 비밀번호 변경 */
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "changePassword" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(`/users/${routes.changepassword}`);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(`/users/${routes.changepassword}`);
+  }
+};
