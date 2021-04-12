@@ -2,7 +2,7 @@ import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 
-/* Join */
+/* 회원가입 */
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
@@ -25,14 +25,13 @@ export const postJoin = async (req, res, next) => {
       await User.register(user, password);
       next();
     } catch (error) {
-      console.log(error);
       res.redirect(routes.home);
     }
     // ToDo: log user in
   }
 };
 
-/* Login Logout */
+/* 로그인 로그아웃 */
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Log in" });
 
@@ -46,7 +45,7 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-/* GitHub Login Controller */
+/* GitHub 로그인 */
 export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
@@ -84,28 +83,79 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     return cb(error);
   }
 };
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
-};
 
 export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
-/* etc */
+/* 유저 정보 갱신 */
+export const getEditProfile = (req, res) =>
+  res.render("editProfile", { pageTitle: "editProfile" });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req;
+
+  try {
+    await User.findByIdAndUpdate(req.user._id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.render(routes.editprofile);
+  }
+};
+
+/* 유저 정보 */
+
 export const userDetail = async (req, res) => {
   const {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+
+export const getMe = async (req, res) => {
+  const id = req.user._id;
+  try {
+    const user = await User.findById(id).populate("videos");
+    console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 
-export const editProfile = (req, res) =>
-  res.render("editProfile", { pageTitle: "editProfile" });
-export const changePassword = (req, res) =>
+/* 비밀번호 변경 */
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "changePassword" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(`/users/${routes.changepassword}`);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(`/users/${routes.changepassword}`);
+  }
+};
