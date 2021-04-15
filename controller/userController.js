@@ -88,6 +88,41 @@ export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
+/* KaKao 로그인 */
+export const kakaoLogin = passport.authenticate("kakao");
+
+export const kakaoLoginCallback = async (_, __, profile, cb) => {
+  const {
+    id,
+    username: name,
+    _json: {
+      properties: { profile_image },
+      kakao_account: { email },
+    },
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.kakaoId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      kakaoId: id,
+      avatarUrl: profile_image,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
+};
+
+export const postKakaoLogIn = (req, res) => {
+  res.redirect(routes.home);
+};
+
 /* 유저 정보 갱신 */
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "editProfile" });
