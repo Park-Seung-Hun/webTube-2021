@@ -5,6 +5,7 @@ const volumeBtn = document.getElementById("jsVolumeBtn");
 const fullScrnBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const volumeRange = document.getElementById("jsVolume");
 
 /* playBtn 동작 */
 function handlePlayClick() {
@@ -12,8 +13,10 @@ function handlePlayClick() {
     /* 비디오가 멈춰있는 경우 */
     videoPlayer.play();
     playBtn.innerHTML = `<i class="fas fa-pause"></i>`;
+    volumeRange.value = videoPlayer.volume;
   } else {
     /* 비디오가 동작하고 있는 경우*/
+    volumeRange.value = 0;
     videoPlayer.pause();
     playBtn.innerHTML = `<i class="fas fa-play"></i>`;
   }
@@ -24,9 +27,21 @@ function handleVolumeClick() {
   if (videoPlayer.muted) {
     /* 비디오가 음소거 되어있는 경우 */
     videoPlayer.muted = false;
-    volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`;
+    volumeRange.value = videoPlayer.volume;
+
+    /* 음소거 버튼 클릭 후 해제 했을 때 아이콘 변경 */
+    if (volumeRange.value >= 0.7) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else if (volumeRange.value >= 0.3) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+    } else if (volumeRange.value == 0) {
+      volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`;
+    } else {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+    }
   } else {
     /* 비디오의 음량이 출력되는 경우 */
+    volumeRange.value = 0;
     videoPlayer.muted = true;
     volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`;
   }
@@ -110,8 +125,25 @@ function handleEnded() {
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
 
+/* volume bar 드래그 동작 */
+function handleDrag(event) {
+  const {
+    target: { value },
+  } = event;
+
+  videoPlayer.volume = value;
+  if (value >= 0.7) volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+  else if (value >= 0.3)
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+  else if (value == 0)
+    volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`;
+  else volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+}
+
 /* init() 동작 */
 function init() {
+  videoPlayer.volume = 0.5;
+
   playBtn.addEventListener("click", handlePlayClick);
 
   volumeBtn.addEventListener("click", handleVolumeClick);
@@ -122,6 +154,8 @@ function init() {
   if (videoPlayer.readyState >= 1) setTotalTime();
   videoPlayer.addEventListener("timeupdate", getCurrentTime);
   videoPlayer.addEventListener("ended", handleEnded);
+
+  volumeRange.addEventListener("input", handleDrag);
 }
 
 /* 비디오가 존재할 경우 init() 실행 */
