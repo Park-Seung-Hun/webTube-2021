@@ -17,6 +17,10 @@ const ME = "/me";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+// Kakao
+const KAKAO = "/oauth/kakao";
+const KAKAO_CALLBACK = "/oauth/kakao/callback";
+
 // Videos url
 const VIDEOS = "/videos";
 const UPLOAD_VIDEO = "/upload";
@@ -66,6 +70,8 @@ const routes = {
   uploadvideo: UPLOAD_VIDEO,
   gitHub: GITHUB,
   githubCallback: GITHUB_CALLBACK,
+  kakao: KAKAO,
+  kakaoCallback: KAKAO_CALLBACK,
   me: ME,
 };
 

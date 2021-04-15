@@ -467,11 +467,11 @@ input[type=submit] {
   background-color: #444444;
   color: white;
 }
-.social-login .social-login--facebook,
-.social-login .social-join--facebook,
-.social-join .social-login--facebook,
-.social-join .social-join--facebook {
-  background-color: #3a5998;
+.social-login .social-login--kakao,
+.social-login .social-join--kakao,
+.social-join .social-login--kakao,
+.social-join .social-join--kakao {
+  background-color: #f9e200;
   color: white;
 }
 .social-login .social-login--google,
