@@ -3,23 +3,40 @@ const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
 let streamObject; // stream 객체 생성
+let videoRecorder; // 비디오 녹화본
+let stream;
 
 /* 비디오 데이터 control */
 const handleVideoData = (event) => {
-  console.log(event);
+  const { data: videoFile } = event;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(videoFile);
+  link.download = "recorded.webm";
+  document.body.appendChild(link);
+  link.click();
 };
 
 /* 녹화 시작 */
 const startRecording = () => {
-  const videoRecorder = new MediaRecorder(streamObject);
+  videoRecorder = new MediaRecorder(streamObject); // 전체 파일을 한번에 저장
   videoRecorder.start();
-  videoRecorder.addEventListener("dataavailable", handleVideoData);
+  videoRecorder.addEventListener("dataavailable", handleVideoData); // 녹화가 멈췄을때 호출
+  recordBtn.addEventListener("click", stopRecording);
+};
+
+const stopRecording = () => {
+  videoRecorder.stop();
+  stream.getTracks().forEach((track) => track.stop());
+  stream = null;
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.innerHTML = "🎥 녹화 시작";
 };
 
 /* 녹화된 비디오 추출 */
 const getVideo = async () => {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
+    stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: { width: 1280, height: 720 },
     });
