@@ -88,14 +88,12 @@ const formatDate = (seconds) => {
 };
 
 function getCurrentTime() {
-  currentTime.innerHTML = formatDate(videoPlayer.currentTime);
-  if (
-    formatDate(videoPlayer.currentTime) === formatDate(videoPlayer.duration)
-  ) {
-    playBtn.innerHTML = `<i class="fas fa-redo"></i>`;
-  }
+  // 현재 시간 설정
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
 }
+
 function setTotalTime() {
+  // 전체 시간 설정
   try {
     if (videoPlayer.duration == Infinity) {
       totalTime.innerHTML = "";
@@ -105,6 +103,11 @@ function setTotalTime() {
   } catch (e) {
     console.error(e);
   }
+}
+function handleEnded() {
+  // 동영상의 재생이 끝났을 때 동작
+  videoPlayer.currentTime = 0;
+  playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
 
 /* init() 동작 */
@@ -118,6 +121,7 @@ function init() {
   videoPlayer.addEventListener("loadeddata", setTotalTime);
   if (videoPlayer.readyState >= 1) setTotalTime();
   videoPlayer.addEventListener("timeupdate", getCurrentTime);
+  videoPlayer.addEventListener("ended", handleEnded);
 }
 
 /* 비디오가 존재할 경우 init() 실행 */
