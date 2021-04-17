@@ -17,6 +17,7 @@ import "./passport";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
+import apiRouter from "./routers/apiRouter";
 import routes from "./routes";
 
 const app = express(); // express를 실행해서 app를 만든 것.
@@ -58,5 +59,6 @@ app.use(localsMiddleware);
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 export default app; // 다른 파일에서 해당 파일을 불러올 때 app 객체를 준다.
