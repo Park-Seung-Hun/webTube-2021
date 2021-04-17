@@ -7,6 +7,15 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
 
+/* 조회수 */
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1]; // Video Id를 추출
+
+  fetch(`/api/${videoId}/view`, {
+    method: "POST",
+  });
+};
+
 /* playBtn 동작 */
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -120,6 +129,8 @@ function setTotalTime() {
   }
 }
 function handleEnded() {
+  // 동영상 재생이 끝나면 조회수 증가
+  registerView();
   // 동영상의 재생이 끝났을 때 동작
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
