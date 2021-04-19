@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema({
+const CommentSchema = new mongoose.Schema({
   text: {
     type: String,
     required: "Text is required",
   },
   createdAt: {
     type: Date,
-    dafault: Date.now,
+    default: Date.now,
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
@@ -15,5 +15,5 @@ const commentSchema = new mongoose.Schema({
   },
 });
 
-const model = mongoose.model("comment", commentSchema);
+const model = mongoose.model("Comment", CommentSchema);
 export default model;
