@@ -32,6 +32,31 @@ const sendComment = async (comment) => {
   }
 };
 
+/* 댓글 삭제 */
+const hadleDeleteComment = async (event) => {
+  event.preventDefault();
+
+  const commentId = window.document
+    .getElementById("jsCommentId")
+    .getAttribute("comment-id");
+
+  const li = event.target.parentNode.parentNode;
+  commentUL.removeChild(li);
+
+  const response = await axios({
+    url: `/api/${commentId}/delete`,
+    method: "post",
+  });
+  if (response.status === 200) {
+    commentLength.innerHTML = parseInt(commentLength.innerHTML, 10) - 1;
+    if (commentLength.innerHTML === "1") {
+      commentS.innerHTML = "comment";
+    } else {
+      commentS.innerHTML = "comments";
+    }
+  }
+};
+
 const handelSubmit = (event) => {
   event.preventDefault();
   const commentInput = addCommentForm.querySelector("input");
