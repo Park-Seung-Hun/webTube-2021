@@ -21,6 +21,11 @@ block content
                 a(href=routes.userdetail(video.creator.id))=video.creator.name
         .video__comments 
             if video.comments.length === 1
-                span.video__comment-number 1 comment 
+                span.video__comment-number 댓글 : 1
             else 
-                span.video__comment-number #{video.comments.length} comments
+                 span.video__comment-number 댓글 : #{video.comments.length} 
+            form.add__comment#jsAddComment
+                input(type="text", placeholder="댓글 작성")
+            ul.video__comments-list
+                each comment in video.comments
+                    span comment.text 
