@@ -66,6 +66,7 @@ export const detailVideo = async (req, res) => {
 
     res.render("detailVideo", { pageTitle: video.title, video });
   } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };
