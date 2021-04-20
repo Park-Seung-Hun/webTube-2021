@@ -6,10 +6,10 @@ import Comment from "../models/Comment";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ _id: -1 });
-    res.render("home", { pageTitle: "Home", videos }); // videos 배열 전달.
+    res.render("home", { pageTitle: "메인 페이지", videos }); // videos 배열 전달.
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", videos: [] }); // videos 배열 전달.
+    res.render("home", { pageTitle: "메인 페이지", videos: [] }); // videos 배열 전달.
   }
 };
 
@@ -28,12 +28,12 @@ export const search = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.render("search", { pageTitle: "Search", searchingBy, videos });
+  res.render("search", { pageTitle: "검색", searchingBy, videos });
 };
 
 /* 동영상 업로드 */
 export const getuploadVideo = (req, res) =>
-  res.render("uploadVideo", { pageTitle: "Upload" });
+  res.render("uploadVideo", { pageTitle: "업로드" });
 
 export const postuploadVideo = async (req, res) => {
   const {
@@ -83,7 +83,7 @@ export const getEditVideo = async (req, res) => {
     if (video.creator.toString() !== req.user.id) {
       throw Error();
     } else {
-      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+      res.render("editVideo", { pageTitle: `${video.title} 편집`, video });
     }
   } catch (error) {
     res.redirect(routes.home);
