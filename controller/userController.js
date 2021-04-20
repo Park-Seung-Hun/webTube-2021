@@ -4,7 +4,7 @@ import User from "../models/User";
 
 /* 회원가입 */
 export const getJoin = (req, res) => {
-  res.render("join", { pageTitle: "Join" });
+  res.render("join", { pageTitle: "회원 가입" });
 };
 
 export const postJoin = async (req, res, next) => {
@@ -14,7 +14,7 @@ export const postJoin = async (req, res, next) => {
 
   if (password !== password2) {
     res.status(400);
-    res.render("join", { pageTitle: "Join" });
+    res.render("join", { pageTitle: "회원 가입" });
   } else {
     try {
       const user = await User({
@@ -33,7 +33,7 @@ export const postJoin = async (req, res, next) => {
 
 /* 로그인 로그아웃 */
 export const getLogin = (req, res) =>
-  res.render("login", { pageTitle: "Log in" });
+  res.render("login", { pageTitle: "로그인" });
 
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
@@ -123,9 +123,45 @@ export const postKakaoLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
+/* Google 로그인 */
+export const googleLogin = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export const googleLoginCallback = async (_, __, profile, cb) => {
+  console.log(profile);
+  const {
+    _json: { sub: id, name, email, picture: avatarUrl },
+  } = profile;
+
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.googleId = id;
+      await User.findOneAndUpdate({ email });
+      cb(null, user);
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        avatarUrl,
+        googleId: id,
+      });
+      cb(null, newUser);
+    }
+  } catch (error) {
+    console.log(error);
+    cb(error);
+  }
+};
+
+export const postGoogleLogIn = (req, res) => {
+  res.redirect(routes.home);
+};
+
 /* 유저 정보 갱신 */
 export const getEditProfile = (req, res) =>
-  res.render("editProfile", { pageTitle: "editProfile" });
+  res.render("editProfile", { pageTitle: "프로필 편집" });
 
 export const postEditProfile = async (req, res) => {
   const {
@@ -153,7 +189,7 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
-    res.render("userDetail", { pageTitle: "User Detail", user });
+    res.render("userDetail", { pageTitle: "회원 정보", user });
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -164,7 +200,7 @@ export const getMe = async (req, res) => {
   const id = req.user._id;
   try {
     const user = await User.findById(id).populate("videos");
-    res.render("userDetail", { pageTitle: "User Detail", user });
+    res.render("userDetail", { pageTitle: "회원 정보", user });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -172,7 +208,7 @@ export const getMe = async (req, res) => {
 
 /* 비밀번호 변경 */
 export const getChangePassword = (req, res) =>
-  res.render("changePassword", { pageTitle: "changePassword" });
+  res.render("changePassword", { pageTitle: "비밀번호 변경" });
 
 export const postChangePassword = async (req, res) => {
   const {

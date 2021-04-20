@@ -1,9 +1,11 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import KakaoStrategy from "passport-kakao";
+import GoogleStrategy from "passport-google-oauth20";
 import User from "./models/User";
 import {
   githubLoginCallback,
+  googleLoginCallback,
   kakaoLoginCallback,
 } from "./controller/userController";
 import routes from "./routes";
@@ -32,6 +34,19 @@ passport.use(
       callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
     },
     kakaoLoginCallback
+  )
+);
+
+// 구글 로그인
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      callbackURL: `http://localhost:4000${routes.googleCallback}`,
+    },
+    googleLoginCallback
   )
 );
 
