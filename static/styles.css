@@ -747,6 +747,6 @@ input[type=submit] {
       -ms-flex-align: center;
           align-items: center;
 }
-.user-profile .user-profile__btns a:not(:last-child) {
+.user-profile .user-profile__btns a {
   margin-bottom: 20px;
 }
