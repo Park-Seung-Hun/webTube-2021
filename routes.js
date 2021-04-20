@@ -21,6 +21,10 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const KAKAO = "/oauth/kakao";
 const KAKAO_CALLBACK = "/oauth/kakao/callback";
 
+// Google
+const GOOGLE = "/auth/google";
+const GOOGLE_CALLBACK = "/auth/google/callback";
+
 // Videos url
 const VIDEOS = "/videos";
 const UPLOAD_VIDEO = "/upload";
@@ -78,6 +82,8 @@ const routes = {
   githubCallback: GITHUB_CALLBACK,
   kakao: KAKAO,
   kakaoCallback: KAKAO_CALLBACK,
+  google: GOOGLE,
+  googleCallback: GOOGLE_CALLBACK,
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,

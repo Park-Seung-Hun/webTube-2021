@@ -7,9 +7,11 @@ import {
   getLogin,
   getMe,
   githubLogin,
+  googleLogin,
   kakaoLogin,
   logout,
   postGithubLogIn,
+  postGoogleLogIn,
   postJoin,
   postKakaoLogIn,
   postLogin,
@@ -33,7 +35,7 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.logout, onlyPrivate, logout);
 
-/* user controller github*/
+/* 깃허브 로그인 */
 globalRouter.get(routes.gitHub, githubLogin);
 
 globalRouter.get(
@@ -49,6 +51,15 @@ globalRouter.get(
   routes.kakaoCallback,
   passport.authenticate("kakao", { failureRedirect: "/login" }),
   postKakaoLogIn
+);
+
+/* 구글 로그인 */
+globalRouter.get(routes.google, googleLogin);
+
+globalRouter.get(
+  routes.googleCallback,
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  postGoogleLogIn
 );
 
 globalRouter.get(routes.me, getMe);

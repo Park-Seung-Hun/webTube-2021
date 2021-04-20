@@ -123,6 +123,42 @@ export const postKakaoLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
+/* Google 로그인 */
+export const googleLogin = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export const googleLoginCallback = async (_, __, profile, cb) => {
+  console.log(profile);
+  const {
+    _json: { sub: id, name, email, picture: avatarUrl },
+  } = profile;
+
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.googleId = id;
+      await User.findOneAndUpdate({ email });
+      cb(null, user);
+    } else {
+      const newUser = await User.create({
+        name,
+        email,
+        avatarUrl,
+        googleId: id,
+      });
+      cb(null, newUser);
+    }
+  } catch (error) {
+    console.log(error);
+    cb(error);
+  }
+};
+
+export const postGoogleLogIn = (req, res) => {
+  res.redirect(routes.home);
+};
+
 /* 유저 정보 갱신 */
 export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "editProfile" });
