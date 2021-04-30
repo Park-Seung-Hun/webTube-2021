@@ -1,5 +1,6 @@
 /* node module */
 import express from "express";
+import "@babel/polyfill";
 
 /* 미들웨어 */
 import morgan from "morgan"; // log를 기록
@@ -11,6 +12,7 @@ import mongoose from "mongoose";
 import { localsMiddleware } from "./middlewares";
 import session from "express-session";
 import passport from "passport";
+import path from "path";
 import "./passport";
 
 /* routers의 각 route (URL 분리 용도) */
@@ -31,8 +33,8 @@ app.set("views", [
   "./views/videoViews",
   "./views/userViews",
 ]);
-app.use("/uploads", express.static("uploads"));
-app.use("/static", express.static("static"));
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 /* 미들웨어 use */
 app.use(cookieParser());
