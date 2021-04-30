@@ -1,6 +1,6 @@
 "use strict";
 
-require("@babel-polyfill");
+require("@babel/polyfill");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
@@ -14,7 +14,9 @@ require("./models/Video");
 
 require("./models/Comment");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 _dotenv["default"].config();
 
