@@ -19,7 +19,7 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `http://localhost:4000${routes.githubCallback}`,
+      callbackURL: `https://cryptic-sea-36033.herokuapp.com${routes.githubCallback}`,
     },
     githubLoginCallback
   )
@@ -31,7 +31,7 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET,
-      callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
+      callbackURL: `https://cryptic-sea-36033.herokuapp.com${routes.kakaoCallback}`,
     },
     kakaoLoginCallback
   )
@@ -44,7 +44,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: `http://localhost:4000${routes.googleCallback}`,
+      callbackURL: `https://cryptic-sea-36033.herokuapp.com${routes.googleCallback}`,
     },
     googleLoginCallback
   )
