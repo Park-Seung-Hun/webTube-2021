@@ -2,33 +2,31 @@
 
 - Vanilla and Node JS를 이용해 Youtube를 클론 코딩.
 
+
+[결과물 보러가기](https://cryptic-sea-36033.herokuapp.com/) 
+
+
 ### 📒 Pages:
 
-- [ ] Home
-- [x] Join
-- [x] Login
-- [x] Search
-- [ ] User Detail
-- [x] Edit Profile
-- [x] Change Password
-- [x] Upload
-- [ ] Video Detail
-- [ ] Edit Video
+- [x] 메인 페이지
+- [x] 회원 가입
+- [x] 로그인
+- [x] 동영상 검색
+- [x] 유저 프로필
+- [x] 프로필 수정
+- [x] 비밀번호 변경
+- [x] 동영상 업로드
+- [x] 동영상 세부정보
+- [x] 동영상 세부정보 편집
 
-### ✅ 사용 Skills
 
-1. NodeJS
+### ✅ Stack
 
-   - ExpressJS
-   - PassportJS
-   - ES6 using Babel
+#### Back-End 
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/><img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white"/><img src="https://img.shields.io/badge/Passport-34E27A?style=flat-square&logo=Passport&logoColor=white"/><img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/>
 
-2. Pug
-3. SCSS
-4. MongoDB
-5. Mongoose
-6. ESLint
-7. Webpack
+#### Front-End 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/><img src="https://img.shields.io/badge/Pug-A86454?style=flat-square&logo=Pug&logoColor=white"/><img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=Babel&logoColor=black"/><img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/><img src="https://img.shields.io/badge/Webpack-8DD6F9?style=flat-square&logo=Webpack&logoColor=Black"/>
 
 ### 📕 주요 기능
 
@@ -46,6 +44,7 @@
     1. `globalRouter`: home, search,oin, Login, Logout Route 분류
     2. `userRouter`: UserDetail, EditProfile, ChangePassword Route 분류
     3. `videoRouter`: uploadVideo, detailVideo, editVideo, deleteVideo Route 분류
+    4. `apiRouter`: 조회수 및 댓글 추가 기능 Route 분류
   - `models`: Comment, Video의 model과 schema를 작성 기능
     1. `Comment.js`: Comment에 대한 model과 schema(text, createdAt)
     2. `Video.js`: Video에 대한 model과 schema(fileUrl, title, description, views, createdAt, comments)
@@ -56,6 +55,7 @@
 |     ├── userController.js
 |     └── videoController.js
 ├── routers
+|     ├── apiRouter.js
 |     ├── globalRouter.js
 |     ├── userRouter.js
 |     └── videoRouter.js
@@ -76,6 +76,8 @@
     1. `main.pug`: 모든 페이지의 토대를 담당
   - `mixins`
     1. `videoBlock.pug`: video의 정보를 캡슐화
+    2. `videoPlayer.pug`: 비디오 플레이어 커스텀
+    3. `message.pug`: Flash 메세지 커스텀
   - `partials`
     1. `header.pug`: 페이지의 상단 부분
     2. `footer.pug`: 페이지의 하단 부분
@@ -89,7 +91,9 @@
     ├── layouts
     |     └── main.pug
     ├── mixins
-    |     └── videoBlock.pug
+    |     ├── videoBlack.pug
+    |     ├── videoPlayer.pug
+    |     └── message.pug
     ├── partials
     |     ├── footer.pug
     |     ├── header.pug
@@ -111,24 +115,36 @@
 ```
 
 3. Assets: SCSS를 이용해 페이지를 꾸밈.
+  - `js`
+    1. `addComment.js`: 댓글 추가 기능
+    2. `main.js`: 메인 js
+    3. `videoPlayer.js`: 비디오 플레이어 커스텀
+    4. `videoRecorder.js` : 녹화 기능 커스텀
 
 ```
 ├── assets
 |     ├── js
-|     |   └── main.js
+|     |   ├── addComment.js
+|     |   ├── main.js
+|     |   ├── videoPlayer.js
+|     |   └── videoRecorder.js
 |     └── scss
 |         ├── config
 |         |   ├── _variables.scss
+|         |   ├── utils.scss
 |         |   └── reset.scss
 |         ├── pages
 |         |   ├── home.scss
+|         |   ├── userProfile.scss
 |         |   └── videoDetail.scss
 |         ├── partials
 |         |   ├── footer.scss
 |         |   ├── form.scss
 |         |   ├── header.scss
 |         |   ├── social.scss
-|         |   └── videoBlock.scss
+|         |   ├── videoBlock.scss
+|         |   ├── videoPlayer.scss
+|         |   └── videoRecorder.scss
 |         ├── main.scss
 |         └── style.scss
 └── static
@@ -137,6 +153,6 @@
 ```
 
 ### 📘 추가할 기능
-
-1. Relationships and Route 보호
-2. Video Player Custom
+1. 댓글 삭제 기능
+2. 댓글 작성 시 프로필 + 이름 + 작성날짜
+3. 비디오 업로드시 썸네일에 프로필 + 이름 + 작성 
