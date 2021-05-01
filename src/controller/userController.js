@@ -142,10 +142,10 @@ export const googleLoginCallback = async (_, __, profile, cb) => {
   } = profile;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ id });
     if (user) {
       user.googleId = id;
-      await User.findOneAndUpdate({ email });
+      await User.findOneAndUpdate({ id });
       cb(null, user);
     } else {
       const newUser = await User.create({
