@@ -95,10 +95,7 @@ export const postGithubLogIn = (req, res) => {
 };
 
 /* KaKao 로그인 */
-export const kakaoLogin = passport.authenticate("kakao", {
-  successFlash: "환영합니다!😊",
-  failureFlash: "로그인 실패😥",
-});
+export const kakaoLogin = passport.authenticate("kakao");
 
 export const kakaoLoginCallback = async (_, __, profile, cb) => {
   const {
@@ -129,14 +126,13 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postKakaoLogIn = (req, res) => {
+  req.flash("success", "환영합니다!😊");
   res.redirect(routes.home);
 };
 
 /* Google 로그인 */
 export const googleLogin = passport.authenticate("google", {
   scope: ["profile", "email"],
-  successFlash: "환영합니다!😊",
-  failureFlash: "로그인 실패😥",
 });
 
 export const googleLoginCallback = async (_, __, profile, cb) => {
@@ -167,6 +163,7 @@ export const googleLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGoogleLogIn = (req, res) => {
+  req.flash("success", "환영합니다!😊");
   res.redirect(routes.home);
 };
 
