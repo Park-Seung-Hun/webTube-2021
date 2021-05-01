@@ -28,11 +28,6 @@ const CookieStore = MongoStore(session);
 app.use(helmet({ contentSecurityPolicy: false }));
 /* pug 파일 경로 설정 */
 app.set("view engine", "pug");
-app.set("views", [
-  "./views/layouts",
-  "./views/videoViews",
-  "./views/userViews",
-]);
 app.set("views", path.join(__dirname, "views"));
 app.use("/static", express.static(path.join(__dirname, "static")));
 
