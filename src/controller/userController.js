@@ -62,7 +62,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   // cb: passport에서 제공된 callback 함수(인증에 성공한 상황에서 호출)
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ id });
 
     console.log(id);
     // user가 존재하는 경우(동일한 email을 가진 유저)
