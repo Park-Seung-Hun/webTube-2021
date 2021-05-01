@@ -14,6 +14,7 @@ import session from "express-session";
 import passport from "passport";
 import path from "path";
 import "./passport";
+import flash from "express-flash";
 
 /* routers의 각 route (URL 분리 용도) */
 import globalRouter from "./routers/globalRouter";
@@ -48,6 +49,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 /* local middleware*/
 app.use(localsMiddleware);
