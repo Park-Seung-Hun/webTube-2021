@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports["default"] = void 0;
 
@@ -19,14 +19,14 @@ var USER_EDIT_PROFILE = "/edit-profile";
 var USER_CHANGE_PASSWORD = "/change-password";
 var ME = "/me"; // Github
 
-var GITHUB = "/auth/github";
-var GITHUB_CALLBACK = "/auth/github/callback"; // Kakao
+var GITHUB = "/oauth/github";
+var GITHUB_CALLBACK = "/oauth/github/callback"; // Kakao
 
 var KAKAO = "/oauth/kakao";
 var KAKAO_CALLBACK = "/oauth/kakao/callback"; // Google
 
-var GOOGLE = "/auth/google";
-var GOOGLE_CALLBACK = "/auth/google/callback"; // Videos url
+var GOOGLE = "/oauth/google";
+var GOOGLE_CALLBACK = "/oauth/google/callback"; // Videos url
 
 var VIDEOS = "/videos";
 var UPLOAD_VIDEO = "/upload";
@@ -86,7 +86,7 @@ var routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
-  me: ME
+  me: ME,
 };
 var _default = routes;
 exports["default"] = _default;

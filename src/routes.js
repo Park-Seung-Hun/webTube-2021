@@ -14,16 +14,16 @@ const USER_CHANGE_PASSWORD = "/change-password";
 const ME = "/me";
 
 // Github
-const GITHUB = "/auth/github";
-const GITHUB_CALLBACK = "/auth/github/callback";
+const GITHUB = "/oauth/github";
+const GITHUB_CALLBACK = "/oauth/github/callback";
 
 // Kakao
 const KAKAO = "/oauth/kakao";
 const KAKAO_CALLBACK = "/oauth/kakao/callback";
 
 // Google
-const GOOGLE = "/auth/google";
-const GOOGLE_CALLBACK = "/auth/google/callback";
+const GOOGLE = "/oauth/google";
+const GOOGLE_CALLBACK = "/oauth/google/callback";
 
 // Videos url
 const VIDEOS = "/videos";
