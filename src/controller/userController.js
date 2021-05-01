@@ -51,10 +51,7 @@ export const logout = (req, res) => {
 };
 
 /* GitHub 로그인 */
-export const githubLogin = passport.authenticate("github", {
-  successFlash: "환영합니다!😊",
-  failureFlash: "로그인 실패😥",
-});
+export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   // json 내부의 요소를 가져온다.
@@ -93,6 +90,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGithubLogIn = (req, res) => {
+  req.flash("success", "환영합니다!😊");
   res.redirect(routes.home);
 };
 
